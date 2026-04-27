@@ -3,17 +3,14 @@ from numpy.typing import NDArray
 
 
 class Solution:
-    
-    def sigmoid(self, z: NDArray[np.float64]) -> NDArray[np.float64]:
-        # z is a 1D NumPy array
-        # Formula: 1 / (1 + e^(-z))
-        # return np.round(your_answer, 5)
-        s = 1 / (1 + np.exp(-z))
-        return np.round(s,5)
 
-    def relu(self, z: NDArray[np.float64]) -> NDArray[np.float64]:
-        # z is a 1D NumPy array
-        # Formula: max(0, z) element-wise
-
-        return np.fmax(0,z)
-
+    def softmax(self, z: NDArray[np.float64]) -> NDArray[np.float64]:
+        # z is a 1D NumPy array of logits
+        # Hint: subtract max(z) for numerical stability before computing exp
+        # return np.round(your_answer, 4)
+        max_z = max(z)
+        score = []
+        for i in z:
+            s = round((np.exp(i-max_z))/(sum(np.exp(z-max_z))),4)
+            score.append(s)
+        return np.array(score)
